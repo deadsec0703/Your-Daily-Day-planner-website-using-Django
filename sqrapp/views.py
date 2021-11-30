@@ -14,7 +14,7 @@ def home(request):
 def weath(request):
   try: 
     if request.GET.get("city"):
-        url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=c6e315d09197cec231495138183954bd'
+        url = ''
         city = request.GET.get("city")
         city_weather = requests.get(url.format(city)).json() #request the API data and convert the JSON to Python data types
         weather = {
