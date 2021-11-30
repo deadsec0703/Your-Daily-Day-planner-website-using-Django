@@ -1,0 +1,229 @@
+
+{% load static %}
+{% block title %} {% endblock %}
+{% block content %}
+<center>
+<style> 
+		* {font-size:30px;}
+		#nav {background-color:#216273;}
+		#nav a { font-size:30px; color:white; text-decoration:none; padding:30px;}
+		
+		#cover
+	{
+
+    		width: 550px;
+    		padding: 35px;
+    		background-color: #545454;
+    		border-radius: 20px;
+    		box-shadow: 0 10px 40px #8C52FF, 0 0 0 20px #ffffffeb;
+    		transform: scale(0.6);
+	}
+        #s-cover
+	{
+   	 width: 1px;
+    	padding-left: 35px;
+	}
+	
+
+
+
+
+
+.tb
+{
+    display: table;
+    width: 100%;
+}
+
+.td
+{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+input, button
+{
+    color: #fff;
+    font-family: Nunito;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+
+
+form
+{
+    height: 96px;
+}
+
+input[type="text"]
+{
+    width: 100%;
+    height: 96px;
+    font-size: 60px;
+    line-height: 1;
+}
+
+input[type="text"]::placeholder
+{
+    color: #D9D9D9;
+}
+
+
+button
+{
+    position: relative;
+    display: block;
+    width: 84px;
+    height: 96px;
+    cursor: pointer;
+}
+
+#s-circle
+{
+    position: relative;
+    top: -8px;
+    left: 0;
+    width: 43px;
+    height: 43px;
+    margin-top: 0;
+    border-width: 15px;
+    border: 15px solid #fff;
+    background-color: transparent;
+    border-radius: 50%;
+    transition: 0.5s ease all;
+}
+
+button span
+{
+    position: absolute;
+    top: 68px;
+    left: 43px;
+    display: block;
+    width: 45px;
+    height: 15px;
+    background-color: transparent;
+    border-radius: 10px;
+    transform: rotateZ(52deg);
+    transition: 0.5s ease all;
+}
+
+button span:before, button span:after
+{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 45px;
+    height: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    transform: rotateZ(0);
+    transition: 0.5s ease all;
+}
+
+#s-cover:hover #s-circle
+{
+    top: -1px;
+    width: 67px;
+    height: 15px;
+    border-width: 0;
+    background-color: #fff;
+    border-radius: 20px;
+}
+
+#s-cover:hover span
+{
+    top: 50%;
+    left: 56px;
+    width: 25px;
+    margin-top: -9px;
+    transform: rotateZ(0);
+}
+
+#s-cover:hover button span:before
+{
+    bottom: 11px;
+    transform: rotateZ(52deg);
+}
+
+#s-cover:hover button span:after
+{
+    bottom: -11px;
+    transform: rotateZ(-52deg);
+}
+#s-cover:hover button span:before, #s-cover:hover button span:after
+{
+    right: -6px;
+    width: 40px;
+    background-color: #fff;
+}
+
+#ytd-url {
+  display: block;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  padding: 10px 14px;
+  margin: 20px;
+  color: #D9D9D9;
+  font-family: Nunito;
+  font-size: 14px;
+  text-decoration: none;
+  background-color: #545454;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px -5px rgba(255, 117, 117, 0.86);
+  z-index: 125;
+}
+.footer {
+  		position: fixed;
+  		left: 0;
+  		bottom: 0;
+  		width: 100%;
+  		background-color:#216273;
+  		color: white;
+  		text-align: center;
+		font-size: 15%;
+		}
+	
+	
+	</style>
+<center>
+<div id="nav">
+		{% if user.is_authenticated %}
+                        <a href="{% url 'main'%}"> Home </a>
+		      	<a><h10> Welcome {{user.username}} </h10></a>
+			<a href="{% url 'user_logout'%}"> Logout </a>
+			
+			
+		{% else %}
+			<a href="{% url 'main'%}"> Home </a>
+			<a href="{% url 'user_signup'%}"> Signup </a>
+			<a href="{% url 'user_login'%}"> Login </a>	
+		{% endif %}
+</div> 
+</center>
+<h1> Today's Weather</h1>
+<div id="cover">
+<form onsubmit="return validate()">
+<input type="hidden" name="csrfmiddlewaretoken" value="5LdilUFzLx6stfvY8IY63IflP8Luf8R9UKVxOkucojFkS2AAuW3LKVy82P4ofZtz">
+    <div class="tb">
+      <div class="td"><input name="city" type="text" placeholder="Search city" required="" id="city"></div>
+      <div class="td" id="s-cover">
+      <button type="submit">
+          <div id="s-circle"></div>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+	{{msg}}
+	  <p> City: {{ weather.city  }} </p>
+	  <p> Temperature: {{ weather.temperature }}  Degree Celsius </p>
+          <p> {{ weather.description }}  <img src="http://openweathermap.org/img/w/{{weather.icon}}.png" alt="Image" style="width:70px"> </p>
+ 	</center>
+  <div class="footer"><footer> <p> <h10> Quickplan: Your Personal Day Designer | Developer: Soham Sanjay Vaidya | Email: sohamvaidya11@gmail.com </h10></p> <p><h10>Developed using: Django Framework, HTML, CSS, JavaScript</h10></p> </footer></div> 
+{% endblock %}

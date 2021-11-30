@@ -1,0 +1,43 @@
+
+{% load static %}
+{% block title %}{% endblock %}
+{% block content %}
+<style> 
+		* {font-size:30px;}
+		#nav {background-color:#216273;}
+		#nav a { font-size:30px; color:white; text-decoration:none; padding:30px;}
+		.footer {
+  		position: fixed;
+  		left: 0;
+  		bottom: 0;
+  		width: 100%;
+  		background-color:#216273;
+  		color: white;
+  		text-align: center;
+		font-size: 15%;
+		}
+	
+	
+	</style>
+<center>
+<div id="nav">
+		{% if user.is_authenticated %}
+                        <a href="{% url 'main'%}"> Home </a>
+		      	<a><h10> Welcome {{user.username}} </h10></a>
+			<a href="{% url 'user_logout'%}"> Logout </a>
+			
+			
+		{% else %}
+			<a href="{% url 'main'%}"> Home </a>
+			<a href="{% url 'user_signup'%}"> Signup </a>
+			<a href="{% url 'user_login'%}"> Login </a>	
+		{% endif %}
+</div>
+</center>
+<center>
+<br><br>
+<a href="{% url 'addtask'%}"><img src ="{% static 'images/todo.gif' %}" style="width:500px;height:350px;"></a>
+ <a href="{% url 'weath'%}"><img src ="{% static 'images/weath.gif' %}" style="width:500px;height:350px;"></a>
+ <p style="font-size: 40px;">Kindly give your feedback--&gt; <a style="font-size: 40px;" href="https://forms.gle/hW1Lp8vnV6xfGSNXA">Feedback Form</a></p></center>
+<div class="footer"><footer> <p> <h10> Quickplan: Your Personal Day Designer | Developer: Soham Sanjay Vaidya | Email: sohamvaidya11@gmail.com </h10></p> <p><h10>Developed using: Django Framework, HTML, CSS, JavaScript</h10></p> </footer></div>
+{% endblock %}
